@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: livraria123
       POSTGRES_DB: livraria
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - dados_postgres:/var/lib/postgresql/data
 
