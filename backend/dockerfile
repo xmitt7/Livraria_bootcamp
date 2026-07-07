@@ -1,0 +1,19 @@
+FROM node:20
+
+WORKDIR /app
+
+# Copia só os arquivos de dependências primeiro (aproveita cache do Docker)
+COPY package*.json ./
+RUN npm install
+
+# Copia o schema e gera o Prisma Client DENTRO do container
+COPY prisma ./prisma
+RUN npx prisma generate
+
+# Copia o restante do código
+COPY . .
+
+EXPOSE 3000
+
+# Na subida: aplica migrations -> roda seed -> inicia o servidor
+CMD ["sh", "-c", "npx prisma migrate deploy && node prisma/seed.js && node src/server.js"]

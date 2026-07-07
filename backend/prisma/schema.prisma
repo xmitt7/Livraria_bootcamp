@@ -15,7 +15,7 @@ datasource db {
 
 model Autor {
   id     Int     @id @default(autoincrement())
-  nome   String
+  nome   String  @unique
   livros Livro[]
 
   @@map("autores")
@@ -23,7 +23,7 @@ model Autor {
 
 model Categoria {
   id     Int     @id @default(autoincrement())
-  nome   String
+  nome   String  @unique
   livros Livro[]
 
   @@map("categorias")
