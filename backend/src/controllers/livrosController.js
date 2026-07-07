@@ -7,6 +7,8 @@ function validarDadosLivro(dados) {
 
   if (!titulo || titulo.trim() === '') erros.push('O título é obrigatório.');
   if (!isbn || isbn.trim() === '') erros.push('O ISBN é obrigatório.');
+  if (isbn && !/^[0-9][0-9-]*$/.test(isbn.trim()))
+    erros.push('O ISBN deve conter apenas números e hífens.');
   if (preco === undefined || preco === null || Number(preco) <= 0)
     erros.push('O preço deve ser maior que zero.');
   if (estoque === undefined || estoque === null || Number(estoque) < 0)

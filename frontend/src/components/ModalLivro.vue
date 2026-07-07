@@ -47,6 +47,8 @@ watch(
 function validar() {
   if (!form.value.titulo.trim()) return 'O título é obrigatório.';
   if (!form.value.isbn.trim()) return 'O ISBN é obrigatório.';
+  if (form.value.isbn.trim().startsWith('-'))
+    return 'O ISBN não pode ser negativo.';
   if (!form.value.preco || Number(form.value.preco) <= 0)
     return 'O preço deve ser maior que zero.';
   if (form.value.estoque === '' || Number(form.value.estoque) < 0)
@@ -54,6 +56,11 @@ function validar() {
   if (!form.value.autorId) return 'Selecione um autor.';
   if (!form.value.categoriaId) return 'Selecione uma categoria.';
   return '';
+}
+function filtrarIsbn() {
+  form.value.isbn = form.value.isbn
+    .replace(/[^0-9-]/g, '')   // só dígitos e hífens
+    .replace(/^-+/, '');        // remove hífens do início
 }
 
 async function confirmar() {
@@ -89,7 +96,12 @@ async function salvarRapido(nome) {
       <input v-model="form.titulo" type="text" placeholder="Título do livro" />
 
       <label>ISBN *</label>
-      <input v-model="form.isbn" type="text" placeholder="Ex: 978-0000000000" />
+      <input
+          v-model="form.isbn"
+         type="text"
+         placeholder="ISBN-10 ou ISBN-13"
+         @input="filtrarIsbn"
+      />
 
       <div class="linha-dupla">
         <div>

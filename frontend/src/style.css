@@ -170,6 +170,26 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Alinhamento das colunas: preço (5) e estoque (6) à direita, ações (7) centralizadas */
+.tabela th:nth-child(5), .tabela td:nth-child(5),
+.tabela th:nth-child(6), .tabela td:nth-child(6) {
+  text-align: right;
+}
+
+.tabela th:nth-child(7), .tabela td:nth-child(7) {
+  text-align: center;
+}
+
+.tabela td:nth-child(7) .acoes {
+  justify-content: center;
+}
+
+/* Botões de ação da tabela com o mesmo tamanho */
+.acoes .btn-mini {
+  min-width: 105px;
+  text-align: center;
+}
 /* Responsividade: abaixo de 768px, tabela vira cards */
 @media (max-width: 768px) {
   .tabela { display: none; }
