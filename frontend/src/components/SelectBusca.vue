@@ -20,17 +20,18 @@ const opcoesFiltradas = computed(() => {
   );
 });
 
-// quando o valor externo muda (ex: limpar filtros), sincroniza o texto
+// quando o valor externo OU as opções mudam, sincroniza o texto exibido
 watch(
-  () => props.modelValue,
-  (novo) => {
-    if (!novo) {
+  [() => props.modelValue, () => props.opcoes],
+  ([novoValor]) => {
+    if (!novoValor) {
       texto.value = '';
       return;
     }
-    const opcao = props.opcoes.find((o) => o.id === Number(novo));
+    const opcao = props.opcoes.find((o) => o.id === Number(novoValor));
     if (opcao) texto.value = opcao.nome;
-  }
+  },
+  { immediate: true }
 );
 
 function selecionar(opcao) {
