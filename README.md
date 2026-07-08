@@ -100,12 +100,16 @@ docker compose down -v                   # parar e APAGAR os dados
 - **Validações em duas camadas (RNF07):** o backend valida todas as regras de
   negócio (fonte da verdade); o frontend valida antes do envio para melhor
   experiência do usuário.
-- **Preço em formato brasileiro:** o campo de preço aceita vírgula como
-  separador decimal (ex: 39,90), convertendo internamente para o formato
-  numérico da API.
-- **ISBN sem validação de formato:** ISBN-10 e ISBN-13 são aceitos como texto
-  livre. Validou-se apenas obrigatoriedade e unicidade (RN01/RN02), conforme o
-  escopo. Validação estrutural de ISBN foi considerada fora do escopo do prazo.
+- **Entrada de preço com máscara monetária brasileira:** o campo de preço
+  funciona no estilo de aplicativos bancários — o usuário digita apenas
+  dígitos e o valor é preenchido a partir dos centavos, com vírgula decimal e
+  separador de milhar posicionados automaticamente (ex: digitar 3990 resulta
+  em 39,90). Internamente o valor é convertido para o formato numérico da API.
+- **ISBN restrito a dígitos e hífens:** o campo de ISBN aceita apenas números
+  e hífens (filtrados na digitação e validados no backend), não podendo
+  iniciar com hífen. Validação estrutural completa de ISBN (dígito
+  verificador, ISBN-10 com X final) foi considerada fora do escopo do prazo.
+  A obrigatoriedade e a unicidade (RN01/RN02) são garantidas.
 - **Migrations e seed automáticos no contêiner:** o backend aplica
   `prisma migrate deploy` e o seed na inicialização, eliminando passos manuais.
 - **Cadastro contextual de autor/categoria:** decidiu-se que autores e

@@ -190,9 +190,69 @@ body {
   min-width: 105px;
   text-align: center;
 }
+/* Botão "+ Novo" com a mesma altura do campo ao lado (modal) */
+.campo-com-botao {
+  align-items: stretch;
+}
+.campo-com-botao .btn-mini {
+  padding-top: 0;
+  padding-bottom: 0;
+  white-space: nowrap;
+}
 /* Responsividade: abaixo de 768px, tabela vira cards */
 @media (max-width: 768px) {
   .tabela { display: none; }
   .cards { display: block; }
   .cabecalho h1 { font-size: 1.2rem; }
+}
+/* ===== Responsividade geral ===== */
+
+/* Evita zoom automático do iOS ao focar inputs (fonte < 16px dispara zoom) */
+input, select, button, textarea {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 16px 10px; }
+
+  /* Cabeçalho empilhado: título em cima, botão embaixo ocupando a largura */
+  .cabecalho { flex-direction: column; align-items: stretch; }
+  .cabecalho h1 { text-align: center; }
+  .cabecalho .btn-primario { width: 100%; }
+
+  /* Filtros empilhados: cada campo numa linha, largura total */
+  .filtros { flex-direction: column; }
+  .filtros input,
+  .filtros select,
+  .filtros .btn,
+  .campo-busca,
+  .select-busca {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Modal ocupando quase a tela toda */
+  .modal {
+    max-width: 100%;
+    padding: 18px;
+  }
+  .modal-fundo { padding: 10px; }
+
+  /* Preço e estoque: lado a lado vira empilhado */
+  .linha-dupla { flex-direction: column; gap: 0; }
+
+  /* Campo + botão "+ Novo": botão desce pra baixo do campo, largura total */
+  .campo-com-botao { flex-direction: column; }
+  .campo-com-botao .btn-mini {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  /* Botões do rodapé do modal em largura total */
+  .modal-acoes { flex-direction: column-reverse; }
+  .modal-acoes .btn { width: 100%; }
+
+  /* Toast centralizado embaixo */
+  .toast { left: 10px; right: 10px; bottom: 10px; text-align: center; }
 }
